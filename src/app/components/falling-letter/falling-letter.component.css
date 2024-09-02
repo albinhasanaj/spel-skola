@@ -1,0 +1,19 @@
+.falling-letter {
+    position: absolute;
+    top: 0;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    /* Keep the element at the end position after animation */
+}
+
+@keyframes fall {
+    0% {
+        top: 0;
+    }
+
+    100% {
+        top: 100vh;
+        /* Falls to the bottom of the viewport */
+    }
+}

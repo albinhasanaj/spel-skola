@@ -1,1 +1,25 @@
-<h1 class="text-[32px]">hello</h1>
+<div class="h-screen w-full bg-cyan-300 relative flex justify-center">
+  <div class="flex h-full flex-col items-center justify-center w-[85vw] relative">
+    <div *ngIf="health <= 0" class="text-4xl text-red-500 font-bold flex flex-col gap-4">
+      You Died
+      <button (click)="restartGame()" class="text-white bg-black p-2 rounded-xl">Restart</button>
+    </div>
+
+    <!-- if score === 999 you win -->
+    <div *ngIf="score === 999" class="text-4xl text-green-500 font-bold flex flex-col gap-4">
+      You Win
+      <button (click)="restartGame()" class="text-white bg-black p-2 rounded-xl">Restart</button>
+    </div>
+
+    <div *ngIf="health > 0 && score < 999" class="text-4xl text-white font-bold">
+      <div class="flex flex-col gap-4 absolute top-0 left-0">
+        <span class="text-xl">Score: {{score}}</span>
+        <span class="text-xl">Health: {{health}}</span>
+      </div>
+      <ng-container *ngFor="let letter of letters">
+        <app-falling-letter [letter]="letter.letter" [xPosition]="letter.xPosition"
+          [speed]="letter.speed"></app-falling-letter>
+      </ng-container>
+    </div>
+  </div>
+</div>
