@@ -14,6 +14,7 @@ export class AppComponent implements OnInit, OnDestroy {
   title = 'spel';
   score = 0;
   health = 5;
+  play = false; // Indicates whether the game is currently active
   letters: { letter: string; xPosition: number; startTime: number; id: number; speed: number }[] = [];
   intervalId: any;
   isBrowser: boolean;
@@ -27,7 +28,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener('document:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
-    if (this.isBrowser) {
+    if (this.isBrowser && this.play && this.health > 0 && this.score < 999) {
       const pressedKey = event.key.toUpperCase();
       const letterFurthestDown = this.getLetterFurthestDown();
 
@@ -121,13 +122,25 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (this.isBrowser) {
-      this.startInterval();
+      // Game does not start immediately; wait for player to press play button
     }
   }
 
-  restartGame() {
-    this.score = 0;
+  startGame() {
+    this.play = true;
     this.health = 5;
+    this.score = 0;
+    this.click_count = 0;
+    this.load_speed = 1000;
+    this.letters = [];
+    this.letterTimeouts.clear(); // Clear previous letter timeouts if any
+    this.startInterval();
+  }
+
+  restartGame() {
+    this.play = false;
+    this.health = 5;
+    this.score = 0;
     this.letters = [];
     this.click_count = 0; // Reset click count
     this.load_speed = 1000; // Reset load speed
@@ -136,7 +149,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.letterTimeouts.forEach((timeoutId) => clearTimeout(timeoutId));
     this.letterTimeouts.clear();
 
-    this.restartInterval(); // Restart the interval with initial settings
+    clearInterval(this.intervalId); // Stop letter generation
   }
 
   ngOnDestroy() {

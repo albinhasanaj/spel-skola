@@ -1,0 +1,19 @@
+* {
+    text-align: center;
+}
+
+#welcome {
+    padding: 20px;
+    font-size: 32px;
+}
+
+.center {
+    justify-content: center;
+}
+
+#play {
+    color: yellowgreen;
+    border: 3px solid darkgreen;
+    width: 300px;
+    font-size: 28px;
+}

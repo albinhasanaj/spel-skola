@@ -1,11 +1,12 @@
-<div class="h-screen w-full bg-cyan-300 relative flex justify-center">
+<div *ngIf="play" class="h-screen w-full bg-green-800 relative flex justify-center">
   <div class="flex h-full flex-col items-center justify-center w-[85vw] relative">
     <div *ngIf="health <= 0" class="text-4xl text-red-500 font-bold flex flex-col gap-4">
       You Died
-      <button (click)="restartGame()" class="text-white bg-black p-2 rounded-xl">Restart</button>
+      <button (click)="restartGame()" class="text-white bg-black p-3 rounded-lg hover:bg-gray-800 transition-colors">
+        Restart
+      </button>
     </div>
 
-    <!-- if score === 999 you win -->
     <div *ngIf="score === 999" class="text-4xl text-green-500 font-bold flex flex-col gap-4">
       You Win
       <button (click)="restartGame()" class="text-white bg-black p-2 rounded-xl">Restart</button>
@@ -21,5 +22,17 @@
           [speed]="letter.speed"></app-falling-letter>
       </ng-container>
     </div>
+  </div>
+</div>
+
+<div *ngIf="!play" class="h-screen w-full bg-green-800 relative flex justify-center">
+  <div class="flex h-full flex-col items-center justify-center w-[85vw] relative gap-4">
+    <p class="text-4xl text-white font-bold mb-4">Welcome to the Falling Letters Game!</p>
+    <button id="play" (click)="startGame()" class="text-white bg-black p-4 rounded-xl text-xl">Play</button>
+    <ul class="flex flex-col gap-4 text-xl text-white font-bold mt-12">
+      <li>1. Too Lazy to implement scoreboard</li>
+      <li>2. Too Lazy to implement scoreboard</li>
+      <li>3. Too Lazy to implement scoreboard</li>
+    </ul>
   </div>
 </div>
